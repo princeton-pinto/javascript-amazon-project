@@ -1,4 +1,4 @@
-name: Example Teleport Workflow
+name: Example Teleport Workflow test
 
 on:
   push:
