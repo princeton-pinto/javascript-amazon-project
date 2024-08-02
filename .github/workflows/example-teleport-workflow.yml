@@ -1,4 +1,4 @@
-name: Example Workflow
+name: Example Teleport Workflow
 
 on:
   push:
@@ -37,3 +37,9 @@ jobs:
         # Enters a command from the cluster, in this case "tsh ls" using Machine
         # ID credentials to list remote SSH nodes.
         run: tsh ls
+      - name: List nodes (tctl)
+        run: tctl nodes ls
+      - name: Run hostname via SSH (tsh)
+        run: tsh ssh root@frontend-api-staging hostname
+      - name: Run hostname via SSH (tsh)
+        run: tsh ssh root@d34af466-3330-400a-8490-ea04125f40e2-1 hostname
