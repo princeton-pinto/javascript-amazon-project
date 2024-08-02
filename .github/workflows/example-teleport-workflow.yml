@@ -34,4 +34,6 @@ jobs:
           # by omitting this.
           anonymous-telemetry: 1
       - name: List nodes (tsh)
-        # Enters a command from the cluster, in this case "tsh ls" using
+        # Enters a command from the cluster, in this case "tsh ls" using Machine
+        # ID credentials to list remote SSH nodes.
+        run: tsh ls
