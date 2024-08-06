@@ -65,16 +65,18 @@ jobs:
 
       - name: Deploy updated Docker container
         run: |
-         tsh ssh root@d34af466-3330-400a-8490-ea04125f40e2-1 << 'EOF'
-           set -e
-           CONTAINER_NAME=$(docker ps --format '{{.Names}}')
-           docker stop $CONTAINER_NAME
-           docker system prune -a -f
-           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-           docker pull $DOCKER_USERNAME/javascript-amazon-site:latest
-           docker run -d -p 80:80 $DOCKER_USERNAME/javascript-amazon-site:latest
-           exit
-          EOF
+            timeout 300s tsh ssh root@d34af466-3330-400a-8490-ea04125f40e2-1 << 'EOF'
+            set -e
+            CONTAINER_NAME=$(docker ps --format '{{.Names}}')
+            if [ -n "$CONTAINER_NAME" ]; then
+              docker stop $CONTAINER_NAME
+            fi
+            docker system prune -a -f
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker pull $DOCKER_USERNAME/javascript-amazon-site:latest
+            docker run -d -p 80:80 $DOCKER_USERNAME/javascript-amazon-site:latest
+            exit
+            EOF
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
