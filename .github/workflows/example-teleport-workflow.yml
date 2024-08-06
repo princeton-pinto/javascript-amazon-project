@@ -11,7 +11,6 @@ jobs:
       id-token: write
       contents: read
     environment: staging
-    # if you added a workflow name in the previous step, make sure you use the same value here
     name: javascript-amazon-project-bot-example
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +45,6 @@ jobs:
         with:
           version: 16.0.4
 
-      # server access example
       - name: Fetch credentials using Machine ID
         id: auth
         uses: teleport-actions/auth@v2
