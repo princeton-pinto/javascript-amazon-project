@@ -10,6 +10,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    environment: staging
     # if you added a workflow name in the previous step, make sure you use the same value here
     name: javascript-amazon-project-bot-example
     runs-on: ubuntu-latest
@@ -35,6 +36,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 
       - name: Fetch Teleport binaries
         uses: teleport-actions/setup@v1
