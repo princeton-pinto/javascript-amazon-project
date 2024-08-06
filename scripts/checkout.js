@@ -8,14 +8,21 @@ import { loadCart  } from '../data/cart.js';
 
 async function loadPage() {
     // console.log('load page');
-    await loadProductsFetch();
+    try {
+        // throw 'error1';
+
+        await loadProductsFetch();
 
     await new Promise((resolve) => {
+        // throw 'error2'
         loadCart(() => {
             resolve();
         });
-    })
-
+    });
+    } catch(error) {
+        console.log('Unexpected error. Please try again later.');
+    }
+    
     renderOrderSummary();
     renderPaymentSummary();
 
@@ -23,10 +30,11 @@ async function loadPage() {
 }
 
 loadPage();
-// .then( (value)=> {
-//     console.log('next step');
-//     console.log(value);
-// })
+/*.then( (value)=> {
+    console.log('next step');
+    console.log(value);
+})
+*/
 
 /*
 Promise.all([
