@@ -60,9 +60,6 @@ jobs:
       - name: List nodes (tctl)
         run: tctl nodes ls
 
-      - name: Run hostname via SSH (tsh)
-        run: tsh ssh root@d34af466-3330-400a-8490-ea04125f40e2-1 hostname
-
       - name: Deploy updated Docker container
         run: |
           timeout 300s tsh ssh root@d34af466-3330-400a-8490-ea04125f40e2-1 << 'EOF'
