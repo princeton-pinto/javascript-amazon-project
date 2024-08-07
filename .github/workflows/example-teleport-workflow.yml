@@ -6,12 +6,12 @@ on:
       - main
 
 jobs:
-  demo:
+  build:
     permissions:
       id-token: write
       contents: read
     environment: staging
-    name: javascript-amazon-project-bot-example
+    name: javascript-amazon-project-bot-build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -40,10 +40,12 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Fetch Teleport binaries
-        uses: teleport-actions/setup@v1
-        with:
-          version: 16.0.4
+  deploy:
+    needs: [build]
+    environment: staging
+    name: javascript-amazon-project-bot-deploy
+    runs-on: ubuntu-latest
+    steps:
 
       - name: Fetch credentials using Machine ID
         id: auth
@@ -56,7 +58,7 @@ jobs:
         run: tsh ls
 
       - name: List nodes (tctl)
-        run: tctl nodes ls
+        run: tctl nodes ls	
 
       - name: Deploy updated Docker container
         run: |
