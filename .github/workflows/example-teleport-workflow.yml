@@ -6,12 +6,12 @@ on:
       - main
 
 jobs:
-  build:
+  demo:
     permissions:
       id-token: write
       contents: read
     environment: staging
-    name: javascript-amazon-project-bot-build
+    name: javascript-amazon-project-bot-example
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -58,12 +58,6 @@ jobs:
       - name: List nodes (tctl)
         run: tctl nodes ls
 
-  deploy:
-    needs: [build]
-    runs-on: ubuntu-latest
-    environment: staging
-    name: javascript-amazon-project-bot-deploy
-    steps:
       - name: Deploy updated Docker container
         run: |
           tsh ssh root@d34af466-3330-400a-8490-ea04125f40e2-1 << 'EOF'
